@@ -1,0 +1,7 @@
+data:
+  file:
+    path: src/main/resources/data/prod-data.csv
+
+logging:
+  level:
+    root: DEBUG
