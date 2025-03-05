@@ -12,6 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@ToString
 public class TrainingRequestDto {
     TraineeRequestDto trainee;
     TrainerRequestDto trainer;

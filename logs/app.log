@@ -9638,3 +9638,180 @@ java.lang.IllegalArgumentException: Training type not found by name: cardio_kach
 2025-03-05 21:18:29.594 [04ae8816-4186-49cb-9f95-468b78e6756a] INFO  [http-nio-8080-exec-2] c.e.l.s.filter.TransactionIdFilter - Transaction ID: 04ae8816-4186-49cb-9f95-468b78e6756a, Method: POST, URI: /trainings, Response Status: 201
 2025-03-05 21:18:55.955 [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2025-03-05 21:18:55.959 [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-05 21:57:34.221 [] INFO  [main] c.e.l.s.ConsoleApplication - Starting ConsoleApplication using Java 23.0.1 with PID 21640 (D:\epam-campus\[Module 04] REST\spring-boot-task\target\classes started by SI1MON in D:\epam-campus\[Module 04] REST\spring-boot-task)
+2025-03-05 21:57:34.224 [] DEBUG [main] c.e.l.s.ConsoleApplication - Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-03-05 21:57:34.225 [] INFO  [main] c.e.l.s.ConsoleApplication - The following 1 profile is active: "dev"
+2025-03-05 21:57:36.037 [] INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-05 21:57:36.037 [] INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-05 21:57:36.091 [] INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-03-05 21:57:36.234 [] INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-05 21:57:36.296 [] INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-03-05 21:57:36.335 [] INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-03-05 21:57:36.628 [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-05 21:57:36.787 [] INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@67e4928c
+2025-03-05 21:57:36.789 [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-05 21:57:36.874 [] INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-03-05 21:57:37.989 [] INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-05 21:57:38.635 [] WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-05 21:57:39.795 [] INFO  [main] c.e.l.s.ConsoleApplication - Started ConsoleApplication in 6.348 seconds (process running for 7.095)
+2025-03-05 21:58:34.690 [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-05 21:58:34.703 [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-05 22:00:44.726 [] INFO  [main] c.e.l.s.ConsoleApplication - Starting ConsoleApplication using Java 23.0.1 with PID 3944 (D:\epam-campus\[Module 04] REST\spring-boot-task\target\classes started by SI1MON in D:\epam-campus\[Module 04] REST\spring-boot-task)
+2025-03-05 22:00:44.727 [] DEBUG [main] c.e.l.s.ConsoleApplication - Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-03-05 22:00:44.728 [] INFO  [main] c.e.l.s.ConsoleApplication - The following 1 profile is active: "dev"
+2025-03-05 22:00:46.594 [] INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-05 22:00:46.594 [] INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-05 22:00:46.655 [] INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-03-05 22:00:46.803 [] INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-05 22:00:46.875 [] INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-03-05 22:00:46.917 [] INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-03-05 22:00:47.234 [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-05 22:00:47.421 [] INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@15a484a9
+2025-03-05 22:00:47.422 [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-05 22:00:47.514 [] INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-03-05 22:00:48.949 [] INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-05 22:00:49.713 [] WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-05 22:00:51.139 [] INFO  [main] c.e.l.s.ConsoleApplication - Started ConsoleApplication in 7.265 seconds (process running for 8.094)
+2025-03-05 22:02:06.474 [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-05 22:02:06.489 [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-05 22:02:12.929 [] INFO  [main] c.e.l.s.ConsoleApplication - Starting ConsoleApplication using Java 23.0.1 with PID 8800 (D:\epam-campus\[Module 04] REST\spring-boot-task\target\classes started by SI1MON in D:\epam-campus\[Module 04] REST\spring-boot-task)
+2025-03-05 22:02:12.934 [] DEBUG [main] c.e.l.s.ConsoleApplication - Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-03-05 22:02:12.935 [] INFO  [main] c.e.l.s.ConsoleApplication - The following 1 profile is active: "dev"
+2025-03-05 22:02:14.915 [] INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-05 22:02:14.916 [] INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-05 22:02:14.994 [] INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-03-05 22:02:15.149 [] INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-05 22:02:15.201 [] INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-03-05 22:02:15.235 [] INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-03-05 22:02:15.530 [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-05 22:02:15.743 [] INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@57a982f9
+2025-03-05 22:02:15.745 [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-05 22:02:15.828 [] INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-03-05 22:02:17.028 [] INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-05 22:02:17.716 [] WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-05 22:02:18.961 [] INFO  [main] c.e.l.s.ConsoleApplication - Started ConsoleApplication in 6.776 seconds (process running for 7.563)
+2025-03-05 22:03:18.582 [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-05 22:03:18.586 [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-05 22:03:31.800 [] INFO  [main] c.e.l.s.ConsoleApplication - Starting ConsoleApplication using Java 23.0.1 with PID 17308 (D:\epam-campus\[Module 04] REST\spring-boot-task\target\classes started by SI1MON in D:\epam-campus\[Module 04] REST\spring-boot-task)
+2025-03-05 22:03:31.801 [] DEBUG [main] c.e.l.s.ConsoleApplication - Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-03-05 22:03:31.802 [] INFO  [main] c.e.l.s.ConsoleApplication - The following 1 profile is active: "dev"
+2025-03-05 22:03:33.559 [] INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-05 22:03:33.560 [] INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-05 22:03:33.619 [] INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-03-05 22:03:33.765 [] INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-05 22:03:33.822 [] INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-03-05 22:03:33.861 [] INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-03-05 22:03:34.201 [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-05 22:03:34.393 [] INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7227926b
+2025-03-05 22:03:34.395 [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-05 22:03:34.482 [] INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-03-05 22:03:35.726 [] INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-05 22:03:36.446 [] WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-05 22:03:37.765 [] INFO  [main] c.e.l.s.ConsoleApplication - Started ConsoleApplication in 6.749 seconds (process running for 7.603)
+2025-03-05 22:03:52.683 [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-05 22:03:52.690 [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-05 22:07:07.743 [] INFO  [main] c.e.l.s.ConsoleApplication - Starting ConsoleApplication using Java 23.0.1 with PID 20640 (D:\epam-campus\[Module 04] REST\spring-boot-task\target\classes started by SI1MON in D:\epam-campus\[Module 04] REST\spring-boot-task)
+2025-03-05 22:07:07.745 [] DEBUG [main] c.e.l.s.ConsoleApplication - Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-03-05 22:07:07.746 [] INFO  [main] c.e.l.s.ConsoleApplication - The following 1 profile is active: "dev"
+2025-03-05 22:07:09.305 [] INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-05 22:07:09.305 [] INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-05 22:07:09.371 [] INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-03-05 22:07:09.496 [] INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-05 22:07:09.546 [] INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-03-05 22:07:09.580 [] INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-03-05 22:07:09.864 [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-05 22:07:10.023 [] INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1d2c253
+2025-03-05 22:07:10.037 [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-05 22:07:10.106 [] INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-03-05 22:07:11.187 [] INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-05 22:07:11.848 [] WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-05 22:07:13.028 [] INFO  [main] c.e.l.s.ConsoleApplication - Started ConsoleApplication in 6.022 seconds (process running for 6.776)
+2025-03-05 22:08:47.964 [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-05 22:08:47.972 [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-05 22:09:28.379 [] INFO  [main] c.e.l.s.ConsoleApplication - Starting ConsoleApplication using Java 23.0.1 with PID 22308 (D:\epam-campus\[Module 04] REST\spring-boot-task\target\classes started by SI1MON in D:\epam-campus\[Module 04] REST\spring-boot-task)
+2025-03-05 22:09:28.380 [] DEBUG [main] c.e.l.s.ConsoleApplication - Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-03-05 22:09:28.381 [] INFO  [main] c.e.l.s.ConsoleApplication - The following 1 profile is active: "dev"
+2025-03-05 22:09:29.904 [] INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-05 22:09:29.905 [] INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-05 22:09:29.958 [] INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-03-05 22:09:30.085 [] INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-05 22:09:30.149 [] INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-03-05 22:09:30.191 [] INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-03-05 22:09:30.484 [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-05 22:09:30.639 [] INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@688d619c
+2025-03-05 22:09:30.641 [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-05 22:09:30.710 [] INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-03-05 22:09:31.929 [] INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-05 22:09:32.679 [] WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-05 22:09:33.909 [] INFO  [main] c.e.l.s.ConsoleApplication - Started ConsoleApplication in 6.226 seconds (process running for 6.994)
+2025-03-05 22:10:46.835 [] DEBUG [main] c.e.l.s.s.impl.TraineeServiceImpl - Trainee was found by username: Sema.Pupkin
+2025-03-05 22:11:03.720 [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-05 22:11:03.723 [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-05 22:12:52.178 [] INFO  [main] c.e.l.s.ConsoleApplication - Starting ConsoleApplication using Java 23.0.1 with PID 3204 (D:\epam-campus\[Module 04] REST\spring-boot-task\target\classes started by SI1MON in D:\epam-campus\[Module 04] REST\spring-boot-task)
+2025-03-05 22:12:52.179 [] DEBUG [main] c.e.l.s.ConsoleApplication - Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-03-05 22:12:52.181 [] INFO  [main] c.e.l.s.ConsoleApplication - The following 1 profile is active: "dev"
+2025-03-05 22:12:53.882 [] INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-05 22:12:53.882 [] INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-05 22:12:53.955 [] INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-03-05 22:12:54.074 [] INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-05 22:12:54.133 [] INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-03-05 22:12:54.169 [] INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-03-05 22:12:54.464 [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-05 22:12:54.621 [] INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1b69fc07
+2025-03-05 22:12:54.634 [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-05 22:12:54.707 [] INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-03-05 22:12:55.816 [] INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-05 22:12:56.439 [] WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-05 22:12:57.589 [] INFO  [main] c.e.l.s.ConsoleApplication - Started ConsoleApplication in 6.085 seconds (process running for 6.829)
+2025-03-05 22:15:20.219 [] DEBUG [main] c.e.l.s.s.impl.TrainerServiceImpl - Trainer was found by username: Antony.Soprano
+2025-03-05 22:15:31.345 [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-05 22:15:31.348 [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

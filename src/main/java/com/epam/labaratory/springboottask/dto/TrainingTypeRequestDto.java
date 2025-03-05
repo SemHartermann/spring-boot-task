@@ -8,11 +8,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@ToString
 public class TrainingTypeRequestDto {
     String trainingTypeName;
-
-    @Override
-    public String toString() {
-        return trainingTypeName;
-    }
 }

@@ -12,6 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@ToString
 public class TrainingResponseDto extends BaseDto {
     TraineeResponseDto trainee;
     TrainerResponseDto trainer;
