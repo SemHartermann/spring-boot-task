@@ -1,52 +1,54 @@
 package com.epam.labaratory.springboottask.service.impl;
 
-import com.epam.labaratory.springboottask.entity.User;
-import com.epam.labaratory.springboottask.repository.UserRepository;
+import com.epam.labaratory.springboottask.dto.UserResponseDto;
 import com.epam.labaratory.springboottask.service.AuthService;
 import com.epam.labaratory.springboottask.service.UserService;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.AccessLevel;
-import org.springframework.core.convert.ConversionService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthServiceImpl implements AuthService {
-    UserRepository userRepository;
+
     UserService userService;
-    ConversionService conversionService;
-    Map<String, User> authenticatedUsers = new HashMap<>();
+    Map<String, UserResponseDto> authenticatedUsers = new HashMap<>();
 
-    public Optional<User> authenticate(String username, String password) throws UserPrincipalNotFoundException {
-        Optional<User> userOptional = userRepository.findByUsernameAndPassword(username, password);
+    @Override
+    public UserResponseDto authenticate(String username, String password) throws UserPrincipalNotFoundException {
+        log.trace("Authenticating user with username: {}", username);
 
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            authenticatedUsers.put(username, user);
+        UserResponseDto userResponseDto = userService.getUserByUsername(username);
+
+        if (userResponseDto.getPassword().equals(password)) {
+            authenticatedUsers.put(username, userResponseDto);
         } else {
-            throw new UserPrincipalNotFoundException("User not found with username: " + username);
+            log.warn("Authentication failed for username: {}", username);
+            throw new UserPrincipalNotFoundException("Wrong password for username: " + username);
         }
 
-        return userOptional;
+        return userResponseDto;
     }
 
+    @Override
     public boolean isAuthenticated(String username) {
         return authenticatedUsers.containsKey(username);
     }
 
+    @Override
     public boolean isActive(String username) throws UserPrincipalNotFoundException {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UserPrincipalNotFoundException("User not found with username: " + username))
-                .getIsActive();
+        return userService.checkIsActive(username);
     }
 
+    @Override
     public void logout(String username) {
         authenticatedUsers.remove(username);
     }

@@ -8,6 +8,11 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class TrainingTypeDto extends BaseDto {
+public class TrainingTypeRequestDto {
     String trainingTypeName;
+
+    @Override
+    public String toString() {
+        return trainingTypeName;
+    }
 }

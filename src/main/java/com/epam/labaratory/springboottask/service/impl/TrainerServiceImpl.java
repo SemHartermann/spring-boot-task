@@ -1,12 +1,10 @@
 package com.epam.labaratory.springboottask.service.impl;
 
 import com.epam.labaratory.springboottask.dto.*;
-import com.epam.labaratory.springboottask.entity.Trainee;
 import com.epam.labaratory.springboottask.entity.Trainer;
-import com.epam.labaratory.springboottask.entity.Trainer;
-import com.epam.labaratory.springboottask.entity.TrainingType;
 import com.epam.labaratory.springboottask.repository.TrainerRepository;
 import com.epam.labaratory.springboottask.service.TrainerService;
+import com.epam.labaratory.springboottask.service.TrainingTypeService;
 import com.epam.labaratory.springboottask.service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.file.attribute.UserPrincipalNotFoundException;
-import java.util.Objects;
 
 @Slf4j
 @Service
@@ -26,6 +23,7 @@ import java.util.Objects;
 public class TrainerServiceImpl implements TrainerService {
     TrainerRepository trainerRepository;
     UserService userService;
+    TrainingTypeService trainingTypeService;
     ConversionService conversionService;
 
     @Transactional
@@ -88,35 +86,26 @@ public class TrainerServiceImpl implements TrainerService {
     public TrainerResponseDto updateTrainerProfile(TrainerRequestDto trainerRequestDto) {
         log.trace("Updating profile for trainer: {}", trainerRequestDto.getUser().getUsername());
 
-        Trainer currentTrainer = trainerRepository.findByUserUsername(trainerRequestDto.getUser().getUsername())
-                .orElseThrow(() -> new IllegalArgumentException("Trainer not found"));
+        TrainerResponseDto currentTrainer = getTrainerByUsername(trainerRequestDto.getUser().getUsername());
 
-        if (!trainerRequestDto.getUser().getFirstName().isBlank() &&
-                !trainerRequestDto.getUser().getFirstName().equals(currentTrainer.getUser().getFirstName())) {
-            currentTrainer.getUser().setFirstName(trainerRequestDto.getUser().getFirstName());
-        }
-
-        if (!trainerRequestDto.getUser().getLastName().isBlank() &&
-                !trainerRequestDto.getUser().getLastName().equals(currentTrainer.getUser().getLastName())) {
-            currentTrainer.getUser().setLastName(trainerRequestDto.getUser().getLastName());
-        }
-
-        if (!trainerRequestDto.getUser().getPassword().isBlank() &&
-                !trainerRequestDto.getUser().getPassword().equals(currentTrainer.getUser().getPassword())) {
-            currentTrainer.getUser().setPassword(trainerRequestDto.getUser().getPassword());
-        }
-
-        if (trainerRequestDto.getUser().getIsActive() != null &&
-                !trainerRequestDto.getUser().getIsActive().equals(currentTrainer.getUser().getIsActive())) {
-            currentTrainer.getUser().setIsActive(trainerRequestDto.getUser().getIsActive());
-        }
+        TrainingTypeResponseDto trainingTypeResponseDto;
 
         if (trainerRequestDto.getSpecialization() != null &&
-                !trainerRequestDto.getSpecialization().equals(currentTrainer.getSpecialization())) {
-            currentTrainer.setSpecialization(conversionService.convert(trainerRequestDto.getSpecialization(), TrainingType.class));
+                !trainerRequestDto.getSpecialization().getTrainingTypeName().isBlank() &&
+                !trainerRequestDto.getSpecialization().getTrainingTypeName().equals(
+                        currentTrainer.getSpecialization().getTrainingTypeName())) {
+
+            trainingTypeResponseDto = trainingTypeService.getByName(
+                    trainerRequestDto.getSpecialization().getTrainingTypeName());
+
+            currentTrainer.setSpecialization(conversionService.convert(trainingTypeResponseDto, TrainingTypeResponseDto.class));
         }
 
-        Trainer updatedTrainer = trainerRepository.save(currentTrainer);
+        currentTrainer.setUser(
+                userService.updateUser(trainerRequestDto.getUser()));
+
+        Trainer updatedTrainer = conversionService.convert(currentTrainer, Trainer.class);
+        updatedTrainer = trainerRepository.save(updatedTrainer);
 
         log.debug("Profile updated for trainer: {}", trainerRequestDto.getUser().getUsername());
 

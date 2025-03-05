@@ -7,7 +7,6 @@ import com.epam.labaratory.springboottask.dto.UserResponseDto;
 import com.epam.labaratory.springboottask.entity.User;
 import com.epam.labaratory.springboottask.repository.UserRepository;
 import com.epam.labaratory.springboottask.service.UserService;
-import jakarta.annotation.PreDestroy;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -77,7 +76,7 @@ public class UserServiceImpl implements UserService {
         log.trace("Fetching user by username: {}", username);
 
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new IllegalArgumentException("User not found with username: " + username));
 
         return conversionService.convert(user, UserResponseDto.class);
     }
@@ -114,19 +113,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void checkIsActive(UserRequestDto userRequestDto) {
-        User user = userRepository.findByUsername(userRequestDto.getUsername())
-                .orElseThrow(() -> new IllegalArgumentException("User with username " + userRequestDto.getUsername() + " not found"));
+    public Boolean checkIsActive(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("User with username " + username + " not found"));
 
-        if (!user.getIsActive()) {
-            throw new IllegalStateException("User is not authenticated");
-        }
+        return user.getIsActive();
     }
 
     @Override
     public UserResponseDto updateUserPassword(UserRequestDto userRequestDto, String newPassword) {
-        checkIsActive(userRequestDto);
-
         log.trace("Updating password for user: {}", userRequestDto.getUsername());
 
         User user = conversionService.convert(userRequestDto, User.class);
@@ -136,45 +131,6 @@ public class UserServiceImpl implements UserService {
         log.debug("Password updated for user: {}", user.getUsername());
 
         return conversionService.convert(updatedUser, UserResponseDto.class);
-    }
-
-    @Override
-    public UserResponseDto activateUser(UserRequestDto userRequestDto) {
-        log.trace("Activating user: {}", userRequestDto.getUsername());
-
-        User user = userRepository.findByUsername(userRequestDto.getUsername())
-                .orElseThrow(() -> new IllegalArgumentException("User not found with username: "
-                        + userRequestDto.getUsername()));
-        user.setIsActive(true);
-        User updatedUser = userRepository.save(user);
-
-        log.debug("User activated: {}", userRequestDto.getUsername());
-
-        return conversionService.convert(updatedUser, UserResponseDto.class);
-    }
-
-    @Override
-    public UserResponseDto deactivateUser(UserRequestDto userRequestDto) {
-        log.trace("Deactivating user: {}", userRequestDto.getUsername());
-
-        User user = userRepository.findByUsername(userRequestDto.getUsername())
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
-        user.setIsActive(false);
-        User updatedUser = userRepository.save(user);
-
-        log.debug("User deactivated: {}", userRequestDto.getUsername());
-
-        return conversionService.convert(updatedUser, UserResponseDto.class);
-    }
-
-    private void deactivateAllUsers() {
-        log.trace("Deactivating all users");
-
-        List<User> users = userRepository.findAll();
-        users.forEach(user -> user.setIsActive(false));
-        userRepository.saveAll(users);
-
-        log.debug("All users deactivated");
     }
 
     public void updateUserStatus(ActivationRequestDto activationRequestDto) {
@@ -187,8 +143,28 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @PreDestroy
-    public void onDestroy() {
-        deactivateAllUsers();
+    @Transactional
+    @Override
+    public UserResponseDto updateUser(UserRequestDto userRequestDto) {
+        log.trace("Updating user with username: {}", userRequestDto.getUsername());
+
+        User currentUser = userRepository.findByUsername(userRequestDto.getUsername())
+                .orElseThrow(() -> new IllegalArgumentException("User not found with username: " + userRequestDto.getUsername()));
+
+        if (!userRequestDto.getFirstName().isBlank() &&
+                !userRequestDto.getFirstName().equals(currentUser.getFirstName())) {
+            currentUser.setFirstName(userRequestDto.getFirstName());
+        }
+
+        if (!userRequestDto.getLastName().isBlank() &&
+                !userRequestDto.getLastName().equals(currentUser.getLastName())) {
+            currentUser.setLastName(userRequestDto.getLastName());
+        }
+
+        User updatedUser = userRepository.save(currentUser);
+
+        log.debug("User updated with username: {}", userRequestDto.getUsername());
+
+        return conversionService.convert(updatedUser, UserResponseDto.class);
     }
 }

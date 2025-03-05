@@ -1,7 +1,6 @@
 package com.epam.labaratory.springboottask.mapper;
 
 
-
 import com.epam.labaratory.springboottask.dto.UserRequestDto;
 import com.epam.labaratory.springboottask.entity.User;
 import org.mapstruct.InheritInverseConfiguration;

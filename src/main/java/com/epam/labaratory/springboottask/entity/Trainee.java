@@ -15,7 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Trainee extends BaseEntity{
+public class Trainee extends BaseEntity {
     @Column(name = "date_of_birth")
     Date dateOfBirth;
 

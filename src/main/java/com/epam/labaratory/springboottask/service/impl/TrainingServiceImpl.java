@@ -1,9 +1,15 @@
 package com.epam.labaratory.springboottask.service.impl;
 
-import com.epam.labaratory.springboottask.dto.TrainingDto;
+import com.epam.labaratory.springboottask.dto.*;
+import com.epam.labaratory.springboottask.entity.Trainee;
+import com.epam.labaratory.springboottask.entity.Trainer;
 import com.epam.labaratory.springboottask.entity.Training;
+import com.epam.labaratory.springboottask.entity.TrainingType;
 import com.epam.labaratory.springboottask.repository.TrainingRepository;
+import com.epam.labaratory.springboottask.service.TraineeService;
+import com.epam.labaratory.springboottask.service.TrainerService;
 import com.epam.labaratory.springboottask.service.TrainingService;
+import com.epam.labaratory.springboottask.service.TrainingTypeService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -23,48 +29,60 @@ import java.util.stream.Collectors;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TrainingServiceImpl implements TrainingService {
     TrainingRepository trainingRepository;
+    TraineeService traineeService;
+    TrainerService trainerService;
+    TrainingTypeService trainingTypeService;
     ConversionService conversionService;
 
     @Transactional
     @Override
-    public TrainingDto createTraining(TrainingDto trainingDto) {
+    public TrainingResponseDto createTraining(TrainingCreateDto trainingDto) {
         log.trace("Adding training {}", trainingDto);
 
+        TraineeResponseDto traineeResponseDto = traineeService.getTraineeByUsername(trainingDto.getTraineeUsername());
+        TrainerResponseDto trainerResponseDto = trainerService.getTrainerByUsername(trainingDto.getTrainerUsername());
+        TrainingTypeResponseDto trainingTypeResponseDto = trainingTypeService.getByName(trainingDto.getTrainingType().getTrainingTypeName());
+
         Training training = conversionService.convert(trainingDto, Training.class);
+        training.setTrainer(conversionService.convert(trainerResponseDto, Trainer.class));
+        training.setTrainee(conversionService.convert(traineeResponseDto, Trainee.class));
+        training.setTrainingType(conversionService.convert(trainingTypeResponseDto, TrainingType.class));
+
         training = trainingRepository.save(Objects.requireNonNull(training));
 
         log.debug("Training added {}", training);
-        return conversionService.convert(training, TrainingDto.class);
+        return conversionService.convert(training, TrainingResponseDto.class);
     }
 
     @Override
-    public TrainingDto getTrainingById(Integer id) {
+    public TrainingResponseDto getTrainingById(Integer id) {
         log.trace("Fetching training by id: {}", id);
 
-        Training training = trainingRepository.findById(id).get();
+        Training training = trainingRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Training not found"));
 
         log.debug("Training was found by id: {}", id);
 
-        return conversionService.convert(training, TrainingDto.class);
+        return conversionService.convert(training, TrainingResponseDto.class);
     }
 
     @Override
-    public List<TrainingDto> getTraineeTrainings(String username, Date fromDate, Date toDate) {
+    public List<TrainingResponseDto> getTraineeTrainings(String username, Date fromDate, Date toDate) {
         log.trace("Fetching trainings for trainee: {} from date: {} to date: {}", username, fromDate, toDate);
 
         return trainingRepository.findAllByTraineeUserUsernameAndTrainingDateBetween(username, fromDate, toDate)
                 .stream()
-                .map(training -> conversionService.convert(training, TrainingDto.class))
+                .map(training -> conversionService.convert(training, TrainingResponseDto.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<TrainingDto> getTrainerTrainings(String username, Date fromDate, Date toDate) {
+    public List<TrainingResponseDto> getTrainerTrainings(String username, Date fromDate, Date toDate) {
         log.trace("Fetching trainings for trainer: {} from date: {} to date: {}", username, fromDate, toDate);
 
         return trainingRepository.findAllByTrainerUserUsernameAndTrainingDateBetween(username, fromDate, toDate)
                 .stream()
-                .map(training -> conversionService.convert(training, TrainingDto.class))
+                .map(training -> conversionService.convert(training, TrainingResponseDto.class))
                 .collect(Collectors.toList());
     }
 }

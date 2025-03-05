@@ -13,7 +13,7 @@ import java.util.Date;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Training extends BaseEntity{
+public class Training extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "trainee_id")
     Trainee trainee;

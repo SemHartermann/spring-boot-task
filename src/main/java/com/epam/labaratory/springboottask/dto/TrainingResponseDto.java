@@ -12,12 +12,12 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class TrainingDto extends BaseDto {
+public class TrainingResponseDto extends BaseDto {
     TraineeResponseDto trainee;
     TrainerResponseDto trainer;
     @NotBlank
     String trainingName;
-    TrainingTypeDto trainingType;
+    TrainingTypeResponseDto trainingType;
     @NotNull
     Date trainingDate;
     @NotNull

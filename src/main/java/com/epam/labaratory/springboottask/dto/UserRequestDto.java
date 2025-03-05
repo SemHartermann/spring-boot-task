@@ -9,7 +9,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserRequestDto{
+public class UserRequestDto {
     @NotBlank
     String firstName;
     @NotBlank

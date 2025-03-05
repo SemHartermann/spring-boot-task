@@ -12,7 +12,7 @@ import lombok.experimental.FieldDefaults;
 public class ActivationRequestDto {
     @NotNull
     String username;
-    
+
     @NotNull
     Boolean isActive;
 }

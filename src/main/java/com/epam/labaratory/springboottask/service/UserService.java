@@ -15,13 +15,11 @@ public interface UserService {
 
     UserResponseDto authenticate(String username, String password);
 
-    void checkIsActive(UserRequestDto userRequestDto);
+    Boolean checkIsActive(String username);
 
     UserResponseDto updateUserPassword(UserRequestDto userRequestDto, String newPassword);
 
-    UserResponseDto activateUser(UserRequestDto userRequestDto);
-
-    UserResponseDto deactivateUser(UserRequestDto userRequestDto);
-
     void updateUserStatus(ActivationRequestDto activationRequestDto);
+
+    UserResponseDto updateUser(UserRequestDto userRequestDto);
 }

@@ -2,11 +2,9 @@ package com.epam.labaratory.springboottask;
 
 import com.epam.labaratory.springboottask.entity.TrainingType;
 import com.epam.labaratory.springboottask.repository.TrainingTypeRepository;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
 
 import java.util.Arrays;
 import java.util.List;

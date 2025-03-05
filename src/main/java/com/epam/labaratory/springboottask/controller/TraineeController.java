@@ -1,14 +1,13 @@
 package com.epam.labaratory.springboottask.controller;
 
 import com.epam.labaratory.springboottask.dto.*;
-import com.epam.labaratory.springboottask.entity.User;
+import com.epam.labaratory.springboottask.service.AuthService;
 import com.epam.labaratory.springboottask.service.TraineeService;
 import com.epam.labaratory.springboottask.service.TrainingService;
 import com.epam.labaratory.springboottask.service.UserService;
-import com.epam.labaratory.springboottask.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/trainees")
@@ -44,9 +42,8 @@ public class TraineeController {
     @PostMapping("/login")
     @Operation(summary = "Login as a trainee")
     public ResponseEntity<String> loginTrainee(@RequestBody LoginRequestDto loginRequest) throws UserPrincipalNotFoundException {
-        Optional<User> user = authService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
-        return user.map(value -> new ResponseEntity<>("Username: " + value.getUsername(), HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED));
+        UserResponseDto user = authService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
+        return new ResponseEntity<>("Username: " + user.getUsername(), HttpStatus.OK);
     }
 
     @PutMapping("/change-password")
@@ -86,11 +83,11 @@ public class TraineeController {
     @GetMapping("/trainings")
     @Operation(summary = "Get trainee trainings list",
             security = {@SecurityRequirement(name = "Authorization")})
-    public ResponseEntity<List<TrainingDto>> getTraineeTrainingsList(
+    public ResponseEntity<List<TrainingResponseDto>> getTraineeTrainingsList(
             @RequestParam("username") String username,
             @RequestParam(value = "periodFrom", required = false) Date periodFrom,
             @RequestParam(value = "periodTo", required = false) Date periodTo) {
-        List<TrainingDto> trainingList = trainingService.getTraineeTrainings(username, periodFrom, periodTo);
+        List<TrainingResponseDto> trainingList = trainingService.getTraineeTrainings(username, periodFrom, periodTo);
         return new ResponseEntity<>(trainingList, HttpStatus.OK);
     }
 

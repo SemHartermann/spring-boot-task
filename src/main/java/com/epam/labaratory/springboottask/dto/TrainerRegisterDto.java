@@ -11,6 +11,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TrainerRegisterDto {
     @NotNull
-    TrainingTypeDto specialization;
+    TrainingTypeRequestDto specialization;
     UserRegisterDto user;
 }

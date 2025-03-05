@@ -1,18 +1,9 @@
 package com.epam.labaratory.springboottask.service.impl;
 
 
-
-
-
-
-
-
-
-
 import com.epam.labaratory.springboottask.dto.*;
 import com.epam.labaratory.springboottask.entity.Trainee;
 import com.epam.labaratory.springboottask.entity.Trainer;
-import com.epam.labaratory.springboottask.entity.User;
 import com.epam.labaratory.springboottask.repository.TraineeRepository;
 import com.epam.labaratory.springboottask.repository.TrainerRepository;
 import com.epam.labaratory.springboottask.repository.TrainingRepository;
@@ -29,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -103,20 +93,19 @@ public class TraineeServiceImpl implements TraineeService {
     public TraineeResponseDto updateTraineeProfile(TraineeRequestDto traineeRequestDto) {
         log.trace("Updating profile for trainee: {}", traineeRequestDto.getUser().getUsername());
 
-        Trainee currentTrainee = traineeRepository.findByUserUsername(traineeRequestDto.getUser().getUsername())
-                .orElseThrow(() -> new IllegalArgumentException("Trainee not found"));
+        TraineeResponseDto currentTrainee = getTraineeByUsername(traineeRequestDto.getUser().getUsername());
 
-        if (traineeRequestDto.getUser().getFirstName() != null &&
+        if (!traineeRequestDto.getUser().getFirstName().isBlank() &&
                 !traineeRequestDto.getUser().getFirstName().equals(currentTrainee.getUser().getFirstName())) {
             currentTrainee.getUser().setFirstName(traineeRequestDto.getUser().getFirstName());
         }
 
-        if (traineeRequestDto.getUser().getLastName() != null &&
+        if (!traineeRequestDto.getUser().getLastName().isBlank() &&
                 !traineeRequestDto.getUser().getLastName().equals(currentTrainee.getUser().getLastName())) {
             currentTrainee.getUser().setLastName(traineeRequestDto.getUser().getLastName());
         }
 
-        if (traineeRequestDto.getUser().getPassword() != null &&
+        if (!traineeRequestDto.getUser().getPassword().isBlank() &&
                 !traineeRequestDto.getUser().getPassword().equals(currentTrainee.getUser().getPassword())) {
             currentTrainee.getUser().setPassword(traineeRequestDto.getUser().getPassword());
         }
@@ -126,17 +115,19 @@ public class TraineeServiceImpl implements TraineeService {
             currentTrainee.getUser().setIsActive(traineeRequestDto.getUser().getIsActive());
         }
 
-        if (traineeRequestDto.getAddress() != null &&
+        if (!traineeRequestDto.getAddress().isBlank() &&
                 !traineeRequestDto.getAddress().equals(currentTrainee.getAddress())) {
             currentTrainee.setAddress(traineeRequestDto.getAddress());
         }
 
         if (traineeRequestDto.getDateOfBirth() != null &&
+                !traineeRequestDto.getDateOfBirth().toString().isBlank() &&
                 !traineeRequestDto.getDateOfBirth().equals(currentTrainee.getDateOfBirth())) {
             currentTrainee.setDateOfBirth(traineeRequestDto.getDateOfBirth());
         }
 
-        Trainee updatedTrainee = traineeRepository.save(currentTrainee);
+        Trainee updatedTrainee = conversionService.convert(currentTrainee, Trainee.class);
+        updatedTrainee = traineeRepository.save(updatedTrainee);
 
         log.debug("Profile updated for trainee: {}", traineeRequestDto.getUser().getUsername());
 
@@ -162,33 +153,24 @@ public class TraineeServiceImpl implements TraineeService {
     public void deleteTraineeProfileByUsername(String username) {
         log.trace("Deleting trainee profile by username: {}", username);
 
-        TraineeResponseDto traineeResponseDto = getTraineeByUsername(username);
-        userService.checkIsActive(conversionService.convert(traineeResponseDto.getUser(), UserRequestDto.class));
-
         traineeRepository.deleteByUserUsername(username);
 
         log.debug("Trainee profile deleted: {}", username);
     }
 
     @Override
-    public List<TrainingDto> getTraineeTrainings(String username, Date fromDate, Date toDate, String trainerName, String trainingType) {
+    public List<TrainingResponseDto> getTraineeTrainings(String username, Date fromDate, Date toDate, String trainerName, String trainingType) {
         log.trace("Fetching trainings for trainee: {} from date: {} to date: {}", username, fromDate, toDate);
-
-        TraineeResponseDto traineeResponseDto = getTraineeByUsername(username);
-        userService.checkIsActive(conversionService.convert(traineeResponseDto.getUser(), UserRequestDto.class));
 
         return trainingRepository.findAllByTrainerUserUsernameAndTrainingDateBetween(username, fromDate, toDate)
                 .stream()
-                .map(training -> conversionService.convert(training, TrainingDto.class))
+                .map(training -> conversionService.convert(training, TrainingResponseDto.class))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<TrainerResponseDto> getUnassignedTrainers(String username) {
         log.trace("Fetching unassigned trainers for trainee: {}", username);
-
-        TraineeResponseDto traineeResponseDto = getTraineeByUsername(username);
-        userService.checkIsActive(conversionService.convert(traineeResponseDto.getUser(), UserRequestDto.class));
 
         return trainerRepository.findUnassignedTrainersByTraineeUsername(username).stream()
                 .map(trainer -> conversionService.convert(trainer, TrainerResponseDto.class))

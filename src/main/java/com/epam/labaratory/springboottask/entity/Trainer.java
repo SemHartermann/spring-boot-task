@@ -14,7 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Trainer extends BaseEntity{
+public class Trainer extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "specialization_id")
     TrainingType specialization;

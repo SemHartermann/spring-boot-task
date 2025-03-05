@@ -1,5 +1,6 @@
 package com.epam.labaratory.springboottask.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -11,9 +12,14 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class TraineeRequestDto {
-    Date dateOfBirth;
-    String address;
+public class TrainingCreateDto {
+    String traineeUsername;
+    String trainerUsername;
+    @NotBlank
+    String trainingName;
+    TrainingTypeRequestDto trainingType;
     @NotNull
-    UserRequestDto user;
+    Date trainingDate;
+    @NotNull
+    Integer trainingDuration;
 }

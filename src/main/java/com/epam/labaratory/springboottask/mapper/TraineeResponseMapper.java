@@ -1,7 +1,6 @@
 package com.epam.labaratory.springboottask.mapper;
 
 
-
 import com.epam.labaratory.springboottask.dto.TraineeResponseDto;
 import com.epam.labaratory.springboottask.entity.Trainee;
 import org.mapstruct.InheritInverseConfiguration;

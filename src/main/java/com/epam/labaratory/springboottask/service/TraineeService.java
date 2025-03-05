@@ -19,7 +19,7 @@ public interface TraineeService {
 
     void deleteTraineeProfileByUsername(String username);
 
-    List<TrainingDto> getTraineeTrainings(String username, Date fromDate, Date toDate, String trainerName, String trainingType);
+    List<TrainingResponseDto> getTraineeTrainings(String username, Date fromDate, Date toDate, String trainerName, String trainingType);
 
     List<TrainerResponseDto> getUnassignedTrainers(String username);
 

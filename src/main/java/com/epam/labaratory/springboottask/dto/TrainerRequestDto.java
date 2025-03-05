@@ -9,9 +9,9 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class TrainerRequestDto{
+public class TrainerRequestDto {
     @NotNull
-    TrainingTypeDto specialization;
+    TrainingTypeRequestDto specialization;
     @NotNull
     UserRequestDto user;
 }
