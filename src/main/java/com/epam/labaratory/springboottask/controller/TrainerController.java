@@ -5,6 +5,7 @@ import com.epam.labaratory.springboottask.service.AuthService;
 import com.epam.labaratory.springboottask.service.TraineeService;
 import com.epam.labaratory.springboottask.service.TrainerService;
 import com.epam.labaratory.springboottask.service.UserService;
+import io.micrometer.core.annotation.Timed;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -74,6 +75,7 @@ public class TrainerController {
     @GetMapping("/unassigned")
     @Operation(summary = "Get not assigned on trainee active trainers",
             security = {@SecurityRequirement(name = "Authorization")})
+    @Timed(value="api_endpoint_getAllCompanies_time",description="Time to Get All Companies")
     public ResponseEntity<List<TrainerResponseDto>> getUnassignedTrainers(
             @RequestParam("username") String username) {
         List<TrainerResponseDto> unassignedTrainers = traineeService.getUnassignedTrainers(username);

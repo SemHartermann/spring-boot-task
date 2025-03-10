@@ -9,6 +9,8 @@ import com.epam.labaratory.springboottask.repository.TrainerRepository;
 import com.epam.labaratory.springboottask.repository.TrainingRepository;
 import com.epam.labaratory.springboottask.service.TraineeService;
 import com.epam.labaratory.springboottask.service.UserService;
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.MeterRegistry;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -20,11 +22,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TraineeServiceImpl implements TraineeService {
 
@@ -33,6 +35,23 @@ public class TraineeServiceImpl implements TraineeService {
     TrainerRepository trainerRepository;
     UserService userService;
     ConversionService conversionService;
+
+    public TraineeServiceImpl(TraineeRepository traineeRepository, TrainingRepository trainingRepository, TrainerRepository trainerRepository, UserService userService, ConversionService conversionService,
+                              MeterRegistry meterRegistry) {
+        this.traineeRepository = traineeRepository;
+        this.trainingRepository = trainingRepository;
+        this.trainerRepository = trainerRepository;
+        this.userService = userService;
+        this.conversionService = conversionService;
+
+        Gauge.builder("api_trainee_count",getCompanyCount())
+                .description("Trainees Count")
+                .register(meterRegistry);
+    }
+
+    private Supplier<Number> getCompanyCount() {
+        return traineeRepository::count;
+    }
 
     @Transactional
     @Override
@@ -169,6 +188,7 @@ public class TraineeServiceImpl implements TraineeService {
     }
 
     @Override
+
     public List<TrainerResponseDto> getUnassignedTrainers(String username) {
         log.trace("Fetching unassigned trainers for trainee: {}", username);
 

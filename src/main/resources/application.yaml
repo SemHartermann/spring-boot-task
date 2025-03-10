@@ -1,7 +1,3 @@
-logging:
-  file:
-    dir: src/main/resources/logs
-
 spring:
   profiles:
     active: dev
@@ -11,3 +7,12 @@ springdoc:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always

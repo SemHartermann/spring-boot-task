@@ -1,11 +1,11 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:8888/gym-rat
+    url: jdbc:postgresql://localhost:5322/epambambam
     username: postgres
-    password: gymgymgym
+    password: Dota2
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create-drop
     show-sql: true

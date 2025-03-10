@@ -33,10 +33,12 @@ public class AuthFilter implements Filter {
                 path.equals("/trainees/register") ||
                 path.equals("/trainers/login") ||
                 path.equals("/trainers/register") ||
-                path.startsWith("/swagger-ui/") ||
+                path.startsWith("/swagger-ui") ||
                 path.startsWith("/v3/api-docs") ||
                 path.startsWith("/swagger-resources") ||
-                path.startsWith("/webjars")) {
+                path.startsWith("/webjars") ||
+                path.startsWith("/actuator")
+        ) {
             chain.doFilter(request, response);
             return;
         }

@@ -3,6 +3,8 @@ package com.epam.labaratory.springboottask.service.impl;
 import com.epam.labaratory.springboottask.dto.UserResponseDto;
 import com.epam.labaratory.springboottask.service.AuthService;
 import com.epam.labaratory.springboottask.service.UserService;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -21,10 +23,17 @@ public class AuthServiceImpl implements AuthService {
 
     UserService userService;
     Map<String, UserResponseDto> authenticatedUsers = new HashMap<>();
+    MeterRegistry meterRegistry;
 
     @Override
     public UserResponseDto authenticate(String username, String password) throws UserPrincipalNotFoundException {
         log.trace("Authenticating user with username: {}", username);
+
+        Counter counter = Counter.builder("api_endpoint_authenticate")
+                .tag("username", username)
+                .description("Number of Requests for authenticate")
+                .register(meterRegistry);
+        counter.increment();
 
         UserResponseDto userResponseDto = userService.getUserByUsername(username);
 

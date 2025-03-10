@@ -1,11 +1,11 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:8888/gym-rat
+    url: jdbc:postgresql://localhost:6322/stg-gym
     username: postgres
-    password: gymgymgym
+    password: barabulka
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
     show-sql: true
