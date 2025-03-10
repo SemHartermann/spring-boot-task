@@ -12,7 +12,6 @@ import com.epam.labaratory.springboottask.service.UserService;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.ConversionService;
@@ -44,7 +43,7 @@ public class TraineeServiceImpl implements TraineeService {
         this.userService = userService;
         this.conversionService = conversionService;
 
-        Gauge.builder("api_trainee_count",getCompanyCount())
+        Gauge.builder("api_trainee_count", getCompanyCount())
                 .description("Trainees Count")
                 .register(meterRegistry);
     }

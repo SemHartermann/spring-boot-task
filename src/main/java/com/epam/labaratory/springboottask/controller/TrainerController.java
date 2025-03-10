@@ -75,7 +75,7 @@ public class TrainerController {
     @GetMapping("/unassigned")
     @Operation(summary = "Get not assigned on trainee active trainers",
             security = {@SecurityRequirement(name = "Authorization")})
-    @Timed(value="api_endpoint_getAllCompanies_time",description="Time to Get All Companies")
+    @Timed(value = "api_endpoint_getUnassignedTrainers_time", description = "Time to Get Unassigned Trainers")
     public ResponseEntity<List<TrainerResponseDto>> getUnassignedTrainers(
             @RequestParam("username") String username) {
         List<TrainerResponseDto> unassignedTrainers = traineeService.getUnassignedTrainers(username);
