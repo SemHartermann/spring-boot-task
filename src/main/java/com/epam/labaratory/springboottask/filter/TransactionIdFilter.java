@@ -43,9 +43,8 @@ public class TransactionIdFilter implements Filter {
     }
 
     private void logRequestAndResponse(HttpServletRequest request, HttpServletResponse response) {
-        String transactionId = MDC.get(TRANSACTION_ID);
-        log.info("Transaction ID: {}, Method: {}, URI: {}, Response Status: {}",
-                transactionId, request.getMethod(), request.getRequestURI(), response.getStatus());
+        log.info("Method: {}, URI: {}, Response Status: {}",
+                request.getMethod(), request.getRequestURI(), response.getStatus());
     }
 
     @Override

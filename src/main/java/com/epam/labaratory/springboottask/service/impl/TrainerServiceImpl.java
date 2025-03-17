@@ -2,7 +2,9 @@ package com.epam.labaratory.springboottask.service.impl;
 
 import com.epam.labaratory.springboottask.dto.*;
 import com.epam.labaratory.springboottask.entity.Trainer;
+import com.epam.labaratory.springboottask.entity.TrainingType;
 import com.epam.labaratory.springboottask.repository.TrainerRepository;
+import com.epam.labaratory.springboottask.repository.TrainingTypeRepository;
 import com.epam.labaratory.springboottask.service.TrainerService;
 import com.epam.labaratory.springboottask.service.TrainingTypeService;
 import com.epam.labaratory.springboottask.service.UserService;
@@ -25,6 +27,7 @@ public class TrainerServiceImpl implements TrainerService {
     UserService userService;
     TrainingTypeService trainingTypeService;
     ConversionService conversionService;
+    TrainingTypeRepository trainingTypeRepository;
 
     @Transactional
     @Override
@@ -38,6 +41,11 @@ public class TrainerServiceImpl implements TrainerService {
         traineeResponseDto.setUser(userDto);
 
         Trainer trainer = conversionService.convert(traineeResponseDto, Trainer.class);
+
+        TrainingTypeResponseDto trainingTypeResponseDto = trainingTypeService.getByName(trainerRegisterDto.getSpecialization().getTrainingTypeName());
+        TrainingType trainingType = conversionService.convert(trainingTypeResponseDto, TrainingType.class);
+
+        trainer.setSpecialization(trainingType);
 
         Trainer savedTrainer = trainerRepository.save(trainer);
 

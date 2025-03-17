@@ -1,6 +1,5 @@
 package com.epam.labaratory.springboottask.service.impl;
 
-
 import com.epam.labaratory.springboottask.dto.*;
 import com.epam.labaratory.springboottask.entity.Trainee;
 import com.epam.labaratory.springboottask.entity.Trainer;
