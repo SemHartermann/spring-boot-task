@@ -1,5 +1,6 @@
 package com.epam.labaratory.springboottask.service;
 
+import com.epam.labaratory.springboottask.dto.RegisterResponseDto;
 import com.epam.labaratory.springboottask.dto.TrainerRegisterDto;
 import com.epam.labaratory.springboottask.dto.TrainerRequestDto;
 import com.epam.labaratory.springboottask.dto.TrainerResponseDto;
@@ -7,7 +8,7 @@ import com.epam.labaratory.springboottask.dto.TrainerResponseDto;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 
 public interface TrainerService {
-    TrainerResponseDto createTrainer(TrainerRegisterDto trainerRegisterDto);
+    RegisterResponseDto<TrainerResponseDto> registerTrainer(TrainerRegisterDto trainerRegisterDto);
 
     TrainerResponseDto getTrainerByUsername(String username);
 

@@ -8,6 +8,8 @@ import com.epam.labaratory.springboottask.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -21,7 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/trainees")
+@RequestMapping("/api/trainees")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Tag(name = "Trainee Management", description = "Operations pertaining to trainees")
@@ -34,16 +36,15 @@ public class TraineeController {
 
     @PostMapping("/register")
     @Operation(summary = "Register a new trainee")
-    public ResponseEntity<TraineeResponseDto> registerTrainee(@Validated @RequestBody TraineeRegisterDto traineeRegisterDto) {
-        TraineeResponseDto responseDto = traineeService.createTrainee(traineeRegisterDto);
+    public ResponseEntity<RegisterResponseDto<TraineeResponseDto>> registerTrainee(@Validated @RequestBody TraineeRegisterDto traineeRegisterDto) {
+        RegisterResponseDto<TraineeResponseDto> responseDto = traineeService.createTrainee(traineeRegisterDto);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
     @Operation(summary = "Login as a trainee")
-    public ResponseEntity<String> loginTrainee(@RequestBody LoginRequestDto loginRequest) throws UserPrincipalNotFoundException {
-        UserResponseDto user = authService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
-        return new ResponseEntity<>("Username: " + user.getUsername(), HttpStatus.OK);
+    public ResponseEntity<AuthenticationResponseDto> loginTrainee(@RequestBody AuthenticationRequestDto loginRequest) throws UserPrincipalNotFoundException {
+        return new ResponseEntity<>(authService.login(loginRequest), HttpStatus.OK);
     }
 
     @PutMapping("/change-password")
@@ -97,5 +98,13 @@ public class TraineeController {
     public ResponseEntity<Void> activate(@RequestBody ActivationRequestDto activationRequestDto) {
         userService.updateUserStatus(activationRequestDto);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/logout")
+    @Operation(summary = "Logout Trainee",
+            security = {@SecurityRequirement(name = "Authorization")})
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        authService.logout(request, response);
+        return "You have been logged out.";
     }
 }

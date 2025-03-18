@@ -3,12 +3,12 @@ package com.epam.labaratory.springboottask.dto;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class LoginRequestDto {
-    String username;
-    String password;
+public class RegisterResponseDto<T extends BaseDto> {
+    String accessToken;
+    T info;
 }

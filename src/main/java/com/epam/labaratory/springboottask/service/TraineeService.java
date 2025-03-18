@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface TraineeService {
-    TraineeResponseDto createTrainee(TraineeRegisterDto traineeRegisterDto);
+    RegisterResponseDto<TraineeResponseDto> createTrainee(TraineeRegisterDto traineeRegisterDto);
 
     TraineeResponseDto getTraineeByUsername(String username);
 

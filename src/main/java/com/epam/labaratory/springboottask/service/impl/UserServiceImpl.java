@@ -12,12 +12,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -25,7 +28,10 @@ import java.util.Optional;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserServiceImpl implements UserService {
     UserRepository userRepository;
+
     ConversionService conversionService;
+
+    PasswordEncoder passwordEncoder;
 
     @Transactional
     @Override
@@ -34,19 +40,23 @@ public class UserServiceImpl implements UserService {
 
         String username = generateUsername(userRegisterDto);
         String password = generatePassword();
+        String encodedPassword = passwordEncoder.encode(password);
 
         User user = new User();
         user.setFirstName(userRegisterDto.getFirstName());
         user.setLastName(userRegisterDto.getLastName());
         user.setUsername(username);
-        user.setPassword(password);
+        user.setPassword(encodedPassword);
         user.setIsActive(true);
 
         User savedUser = userRepository.save(user);
 
         log.debug("User created with username: {}", username);
 
-        return conversionService.convert(savedUser, UserResponseDto.class);
+        UserResponseDto userResponseDto = conversionService.convert(savedUser, UserResponseDto.class);
+        userResponseDto.setPassword(password);
+
+        return userResponseDto;
     }
 
     private String generateUsername(UserRegisterDto userRegisterDto) {
@@ -68,7 +78,10 @@ public class UserServiceImpl implements UserService {
     }
 
     private String generatePassword() {
-        return java.util.UUID.randomUUID().toString().replace("-", "").substring(0, 10);
+        return UUID.randomUUID()
+                .toString()
+                .replace("-", "")
+                .substring(0, 10);
     }
 
     @Override
@@ -113,9 +126,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean checkIsActive(String username) {
+    public Boolean checkIsActive(String username) throws UserPrincipalNotFoundException {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("User with username " + username + " not found"));
+                .orElseThrow(() -> new UserPrincipalNotFoundException("User with username " + username + " not found"));
 
         return user.getIsActive();
     }

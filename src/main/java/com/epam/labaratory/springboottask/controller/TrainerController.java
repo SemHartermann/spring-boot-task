@@ -9,6 +9,8 @@ import io.micrometer.core.annotation.Timed;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -21,7 +23,7 @@ import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/trainers")
+@RequestMapping("/api/trainers")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Tag(name = "Trainer Management", description = "Operations pertaining to trainers")
@@ -34,16 +36,15 @@ public class TrainerController {
 
     @PostMapping("/register")
     @Operation(summary = "Register a new trainer")
-    public ResponseEntity<TrainerResponseDto> registerTrainer(@Validated @RequestBody TrainerRegisterDto trainerRegisterDto) {
-        TrainerResponseDto responseDto = trainerService.createTrainer(trainerRegisterDto);
+    public ResponseEntity<RegisterResponseDto<TrainerResponseDto>> registerTrainer(@Validated @RequestBody TrainerRegisterDto trainerRegisterDto) {
+        RegisterResponseDto<TrainerResponseDto> responseDto = trainerService.registerTrainer(trainerRegisterDto);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
     @Operation(summary = "Login as a trainer")
-    public ResponseEntity<String> loginTrainer(@RequestBody LoginRequestDto loginRequest) throws UserPrincipalNotFoundException {
-        UserResponseDto user = authService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
-        return new ResponseEntity<>("Username: " + user.getUsername(), HttpStatus.OK);
+    public ResponseEntity<AuthenticationResponseDto> loginTrainer(@RequestBody AuthenticationRequestDto loginRequest) throws UserPrincipalNotFoundException {
+        return new ResponseEntity<>(authService.login(loginRequest), HttpStatus.OK);
     }
 
     @PutMapping("/change-password")
@@ -88,5 +89,13 @@ public class TrainerController {
     public ResponseEntity<Void> activate(@RequestBody ActivationRequestDto activationRequestDto) {
         userService.updateUserStatus(activationRequestDto);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/logout")
+    @Operation(summary = "Logout Trainer",
+            security = {@SecurityRequirement(name = "Authorization")})
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        authService.logout(request, response);
+        return "You have been logged out.";
     }
 }

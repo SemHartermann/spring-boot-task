@@ -6,6 +6,8 @@ import com.epam.labaratory.springboottask.dto.UserRegisterDto;
 import com.epam.labaratory.springboottask.dto.UserRequestDto;
 import com.epam.labaratory.springboottask.dto.UserResponseDto;
 
+import java.nio.file.attribute.UserPrincipalNotFoundException;
+
 public interface UserService {
     UserResponseDto createUser(UserRegisterDto userRegisterDto);
 
@@ -15,7 +17,7 @@ public interface UserService {
 
     UserResponseDto authenticate(String username, String password);
 
-    Boolean checkIsActive(String username);
+    Boolean checkIsActive(String username) throws UserPrincipalNotFoundException;
 
     UserResponseDto updateUserPassword(UserRequestDto userRequestDto, String newPassword);
 

@@ -16,3 +16,10 @@ management:
   endpoint:
     health:
       show-details: always
+
+application:
+  security:
+    jwt:
+      secret-key: koxelJPNOmdGTDaHkqL1D+vAhA9PXiddCi00q1UDEL0TEoB3RxlKQ1p0bPX9esoJjNWqL6yoPwjjBhbqPOpRXTZl4ceDypJaEsjVFJgp+LE=
+      access-token-expiration: 864000000 # ten days
+      refresh-token-expiration: 86400000 # one day

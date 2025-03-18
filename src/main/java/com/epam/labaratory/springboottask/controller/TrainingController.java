@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/trainings")
+@RequestMapping("/api/trainings")
 @RequiredArgsConstructor
 @Tag(name = "Training Management", description = "Operations pertaining to trainings")
 public class TrainingController {

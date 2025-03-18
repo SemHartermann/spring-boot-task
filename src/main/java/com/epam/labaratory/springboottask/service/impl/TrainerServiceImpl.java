@@ -4,7 +4,7 @@ import com.epam.labaratory.springboottask.dto.*;
 import com.epam.labaratory.springboottask.entity.Trainer;
 import com.epam.labaratory.springboottask.entity.TrainingType;
 import com.epam.labaratory.springboottask.repository.TrainerRepository;
-import com.epam.labaratory.springboottask.repository.TrainingTypeRepository;
+import com.epam.labaratory.springboottask.service.AuthService;
 import com.epam.labaratory.springboottask.service.TrainerService;
 import com.epam.labaratory.springboottask.service.TrainingTypeService;
 import com.epam.labaratory.springboottask.service.UserService;
@@ -27,11 +27,11 @@ public class TrainerServiceImpl implements TrainerService {
     UserService userService;
     TrainingTypeService trainingTypeService;
     ConversionService conversionService;
-    TrainingTypeRepository trainingTypeRepository;
+    AuthService authService;
 
     @Transactional
     @Override
-    public TrainerResponseDto createTrainer(TrainerRegisterDto trainerRegisterDto) {
+    public RegisterResponseDto<TrainerResponseDto> registerTrainer(TrainerRegisterDto trainerRegisterDto) {
         log.trace("Creating trainer with first name: {} and last name: {}",
                 trainerRegisterDto.getUser().getFirstName(), trainerRegisterDto.getUser().getLastName());
 
@@ -51,7 +51,17 @@ public class TrainerServiceImpl implements TrainerService {
 
         log.debug("Trainer created with user: {}", userDto.getUsername());
 
-        return conversionService.convert(savedTrainer, TrainerResponseDto.class);
+        TrainerResponseDto trainerResponseDto = conversionService.convert(savedTrainer, TrainerResponseDto.class);
+
+        AuthenticationRequestDto authenticationRequestDto = new AuthenticationRequestDto();
+        authenticationRequestDto.setUsername(trainerResponseDto.getUser().getUsername());
+        authenticationRequestDto.setPassword(trainerResponseDto.getUser().getPassword());
+
+        RegisterResponseDto<TrainerResponseDto> registerResponseDto = new RegisterResponseDto<>();
+        registerResponseDto.setAccessToken(authService.login(authenticationRequestDto).getAccessToken());
+        registerResponseDto.setInfo(trainerResponseDto);
+
+        return registerResponseDto;
     }
 
     @Override

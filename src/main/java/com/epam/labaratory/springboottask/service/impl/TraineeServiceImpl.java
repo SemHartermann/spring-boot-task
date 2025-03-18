@@ -6,6 +6,7 @@ import com.epam.labaratory.springboottask.entity.Trainer;
 import com.epam.labaratory.springboottask.repository.TraineeRepository;
 import com.epam.labaratory.springboottask.repository.TrainerRepository;
 import com.epam.labaratory.springboottask.repository.TrainingRepository;
+import com.epam.labaratory.springboottask.service.AuthService;
 import com.epam.labaratory.springboottask.service.TraineeService;
 import com.epam.labaratory.springboottask.service.UserService;
 import io.micrometer.core.instrument.Gauge;
@@ -33,14 +34,16 @@ public class TraineeServiceImpl implements TraineeService {
     TrainerRepository trainerRepository;
     UserService userService;
     ConversionService conversionService;
+    AuthService authService;
 
     public TraineeServiceImpl(TraineeRepository traineeRepository, TrainingRepository trainingRepository, TrainerRepository trainerRepository, UserService userService, ConversionService conversionService,
-                              MeterRegistry meterRegistry) {
+                              MeterRegistry meterRegistry, AuthService authService) {
         this.traineeRepository = traineeRepository;
         this.trainingRepository = trainingRepository;
         this.trainerRepository = trainerRepository;
         this.userService = userService;
         this.conversionService = conversionService;
+        this.authService = authService;
 
         Gauge.builder("api_trainee_count", getCompanyCount())
                 .description("Trainees Count")
@@ -53,7 +56,7 @@ public class TraineeServiceImpl implements TraineeService {
 
     @Transactional
     @Override
-    public TraineeResponseDto createTrainee(TraineeRegisterDto traineeRegisterDto) {
+    public RegisterResponseDto<TraineeResponseDto> createTrainee(TraineeRegisterDto traineeRegisterDto) {
         log.trace("Creating trainee with first name: {} and last name: {}",
                 traineeRegisterDto.getUser().getFirstName(), traineeRegisterDto.getUser().getLastName());
 
@@ -68,7 +71,17 @@ public class TraineeServiceImpl implements TraineeService {
 
         log.debug("Trainee created with user: {}", userDto.getUsername());
 
-        return conversionService.convert(savedTrainee, TraineeResponseDto.class);
+        traineeResponseDto = conversionService.convert(savedTrainee, TraineeResponseDto.class);
+
+        AuthenticationRequestDto authenticationRequestDto = new AuthenticationRequestDto();
+        authenticationRequestDto.setUsername(traineeResponseDto.getUser().getUsername());
+        authenticationRequestDto.setPassword(traineeResponseDto.getUser().getPassword());
+
+        RegisterResponseDto<TraineeResponseDto> registerResponseDto = new RegisterResponseDto<>();
+        registerResponseDto.setAccessToken(authService.login(authenticationRequestDto).getAccessToken());
+        registerResponseDto.setInfo(traineeResponseDto);
+
+        return registerResponseDto;
     }
 
     @Override
